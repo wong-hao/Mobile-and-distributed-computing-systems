@@ -18,23 +18,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
         reverseButton = findViewById(R.id.reverseBtn);
+        clearButton= findViewById(R.id.clearBtn);
+        editText = findViewById(R.id.editMessage);
+
         reverseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editText = findViewById(R.id.editMessage);
                 String builder= new StringBuilder(editText.getText()).reverse().toString();
                 editText.setText(builder);
             }
         });
 
-        clearButton= findViewById(R.id.clearBtn);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editText = findViewById(R.id.editMessage);
                 editText.setText("");
             }
         });
