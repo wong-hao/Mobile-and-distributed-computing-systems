@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
         binding.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
 
-                Student student;
-                student = data.getParcelableExtra("student");
+                Bundle bundle = data.getBundleExtra("bundle");
+                Student student = bundle.getParcelable("student");
+
                 binding.textView1.setText(student.getName());
                 binding.textView2.setText(student.getSurname());
                 binding.textView3.setText("" + student.getAge());

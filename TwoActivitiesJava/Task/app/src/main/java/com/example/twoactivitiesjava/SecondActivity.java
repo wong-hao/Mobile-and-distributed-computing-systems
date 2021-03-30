@@ -39,6 +39,7 @@ public class SecondActivity extends AppCompatActivity {
         binding = ActivitySecondBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
         binding.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
