@@ -1,7 +1,5 @@
 package com.example.navigationjava.fragment;
 
-
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +19,7 @@ public class ViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the View for this fragment using the binding
+// Inflate the View for this fragment using the binding
         binding = ViewFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         SharedViewModel model = new
