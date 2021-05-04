@@ -22,7 +22,7 @@ public interface CustomerDAO {
     @Insert
     void insertAll(Customer... customers);
     @Insert
-    long insert(Customer customer);
+    void insert(Customer customer);
     @Delete
     void delete(Customer customer);
     @Update(onConflict = REPLACE)

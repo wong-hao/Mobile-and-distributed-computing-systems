@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
     String humidity;
     String pressure;
     String obsTime;
+    String date;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment {
                         humidity = now.getString("humidity");
                         pressure = now.getString("pressure");
                         obsTime = now.getString("obsTime");
-
+                        date = obsTime.substring(0,10);
                         //System.out.println(temperature);
                         //System.out.println(humidity);
                         //System.out.println(pressure);
@@ -82,7 +83,8 @@ public class HomeFragment extends Fragment {
                         binding.textView4.setText("Temperature (°C): " + temperature);
                         binding.textView5.setText("Humidity (%): " +  humidity);
                         binding.textView6.setText("Pressure (KPa): " + pressure);
-                        binding.textView7.setText("The precise update time: " + obsTime);
+                        binding.textView7.setText("Current date: " + date);
+                        binding.textView8.setText("The precise update time: " + obsTime);
 
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
