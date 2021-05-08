@@ -186,11 +186,11 @@ public class ReportsFragment extends Fragment {
         l.setYOffset(0f);//设置比例块Y轴偏移量
 
 
-        binding.pcCharts.setEntryLabelColor(Color.WHITE);//设置pieChart图表文本字体颜色
+        binding.pcCharts.setEntryLabelColor(Color.BLACK);//设置pieChart图表文本字体颜色
 //        mBinding.pcCharts.setEntryLabelTypeface(mTfRegular);//设置pieChart图表文本字体样式
         binding.pcCharts.setEntryLabelTextSize(12f);//设置pieChart图表文本字体大小
 
-        PieDataSet dataSet = new PieDataSet(entries, "数据说明");//右上角，依次排列
+        PieDataSet dataSet = new PieDataSet(entries, "Pain location pie chart");//右上角，依次排列
 
         dataSet.setDrawIcons(false);
 
@@ -227,7 +227,7 @@ public class ReportsFragment extends Fragment {
 
         PieData data = new PieData(dataSet);//设置饼图里面的百分比（eg: 20.8%）
         data.setDrawValues(true);            //设置是否显示数据实体(百分比，true:以下属性才有意义)
-        data.setValueTextColor(Color.WHITE);  //设置所有DataSet内数据实体（百分比）的文本颜色
+        data.setValueTextColor(Color.BLACK);  //设置所有DataSet内数据实体（百分比）的文本颜色
         data.setValueTextSize(11f);          //设置所有DataSet内数据实体（百分比）的文本字体大小
 //        data.setValueTypeface(mTfLight);     //设置所有DataSet内数据实体（百分比）的文本字体样式
         data.setValueFormatter(new PercentFormatter());//设置所有DataSet内数据实体（百分比）的文本字体格式
@@ -286,12 +286,14 @@ public class ReportsFragment extends Fragment {
         binding.pcCharts.setRotationEnabled(true);
         //将此设置为false，以防止由抽头姿态突出值。值仍然可以通过拖动或编程高亮显示。默认值：真
         binding.pcCharts.setHighlightPerTapEnabled(true);
+
+        binding.pcCharts.setExtraBottomOffset(20);
         //创建Legend对象
         Legend l = binding.pcCharts.getLegend();
         //设置垂直对齐of the Legend
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         //设置水平of the Legend
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         //设置方向
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         //其中哪一个将画在图表或外
@@ -303,10 +305,12 @@ public class ReportsFragment extends Fragment {
         //设置此轴上标签的所使用的y轴偏移量 更高的偏移意味着作为一个整体的Legend将被放置远离顶部。
         l.setYOffset(0f);
         //设置入口标签的颜色。
-        binding.pcCharts.setEntryLabelColor(Color.WHITE);
+        binding.pcCharts.setEntryLabelColor(Color.BLACK);
         //设置入口标签的大小。默认值：13dp
         binding.pcCharts.setEntryLabelTextSize(12f);
         //模拟的数据源
+        binding.pcCharts.setDrawEntryLabels(true);// 设置pieChart是否只显示饼图上百分比不显示文字
+
         PieEntry x1 = new PieEntry(steps_taken , "steps taken" , R.color.colorAccent) ;
         PieEntry x2 = new PieEntry(goal-steps_taken , "remaining steps") ;
 
@@ -316,7 +320,7 @@ public class ReportsFragment extends Fragment {
         list.add(x2) ;
 
         //设置到PieDataSet对象
-        PieDataSet set = new PieDataSet(list , "Steps Chart") ;
+        PieDataSet set = new PieDataSet(list , "Steps taken pie chart") ;
         set.setDrawValues(true);//设置为true，在图表绘制y
         set.setAxisDependency(YAxis.AxisDependency.LEFT);//设置Y轴，这个数据集应该被绘制（左或右）。默认值：左
         set.setAutomaticallyDisableSliceSpacing(false);//当启用时，片间距将是0时，最小值要小于片间距本身
