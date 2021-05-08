@@ -246,41 +246,17 @@ public class PainFragment extends Fragment {
                 }
                 steps = Integer.parseInt(binding.editText6.getText().toString());
 
-                date = Weather.getInstance().getDate();
-                if(date == null){
-                    Toast.makeText(getActivity(),"Weather API is not working",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                model.getAllPainRecords().observe(getViewLifecycleOwner(), new
-                        Observer<List<PainRecord>>() {
-                            @Override
-                            public void onChanged(List<PainRecord> painRecords) {
-
-                                for(PainRecord temp : painRecords){
-                                    if(temp.getDate().equals(date)){
-                                        Toast.makeText(getActivity(),"One enrtry allowed per day!",Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-                                }
-                            }
-
-                        });
-
                 temperature = Weather.getInstance().getTemperature();
                 if(temperature == null){
                     Toast.makeText(getActivity(),"Weather API is not working",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                date = Weather.getInstance().getDate();
+
                 humidity = Weather.getInstance().getHumidity();
-                if(humidity == null){
-                    Toast.makeText(getActivity(),"Weather API is not working",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 pressure = Weather.getInstance().getPressure();
-                if(pressure == null){
-                    Toast.makeText(getActivity(),"Weather API is not working",Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 email = User.getInstance().getEmail();
 
