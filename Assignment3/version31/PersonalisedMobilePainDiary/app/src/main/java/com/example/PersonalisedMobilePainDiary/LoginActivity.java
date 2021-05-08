@@ -1,5 +1,6 @@
 package com.example.PersonalisedMobilePainDiary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,7 +12,9 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.PersonalisedMobilePainDiary.databinding.ActivityLoginBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -69,6 +72,16 @@ public class LoginActivity extends AppCompatActivity {
         binding.Button1.setOnClickListener(v->{
             String username= binding.editText1.getText().toString();
             String password= binding.editText2.getText().toString();
+
+            if(username.isEmpty()){
+                Toast.makeText(getApplication(),"Email is empty",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(password.isEmpty()){
+                Toast.makeText(getApplication(),"Password is empty",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             User.getInstance().register(username,password);
 
             /*
@@ -81,14 +94,19 @@ public class LoginActivity extends AppCompatActivity {
             }
             */
 
-            auth.signInWithEmailAndPassword(username, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    //do something e.g. show a message or start another activity
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivityForResult(intent, 1);
-                    Toast.makeText(LoginActivity.this,"Login Successfully",Toast.LENGTH_SHORT).show();
+            auth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                public void onComplete(@NonNull Task<AuthResult> task){
+                    if(task.isSuccessful()){
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivityForResult(intent, 1);
+                        Toast.makeText(LoginActivity.this,"Login Successfully",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(LoginActivity.this,"Login falied",Toast.LENGTH_SHORT).show();
+                    }
                 }
+
+
             });
 
         });
