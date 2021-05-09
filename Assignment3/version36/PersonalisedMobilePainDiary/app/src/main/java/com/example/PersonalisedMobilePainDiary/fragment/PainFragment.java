@@ -233,6 +233,14 @@ public class PainFragment extends Fragment {
                 }
                 id = Integer.parseInt(binding.editText9.getText().toString());
                 */
+                if(location==null){
+                    Toast.makeText(getActivity(),"Location is empty",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mood==null){
+                    Toast.makeText(getActivity(),"Mood is empty",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(binding.editText9.getText().toString().isEmpty()){
                     Toast.makeText(getActivity(),"Date is empty",Toast.LENGTH_SHORT).show();
@@ -241,15 +249,20 @@ public class PainFragment extends Fragment {
                 date2 = binding.editText9.getText().toString();
 
                 if(binding.editText5.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity(),"Goal is empty",Toast.LENGTH_SHORT).show();
-                    return;
+                    Toast.makeText(getActivity(),"Goal is empty, take the defalut value " + goal,Toast.LENGTH_SHORT).show();
+                }else{
+                    goal= Integer.parseInt(binding.editText5.getText().toString());
                 }
-                goal= Integer.parseInt(binding.editText5.getText().toString());
+                //System.out.println("Goal set: "+goal);
+                Steps.getInstance().setGoal(goal);
+
                 if(binding.editText6.getText().toString().isEmpty()){
                     Toast.makeText(getActivity(),"Steps take is empty",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 steps = Integer.parseInt(binding.editText6.getText().toString());
+                //System.out.println("Steps_taken set: "+steps);
+                Steps.getInstance().setSteps_taken(steps);
 
                 temperature = Weather.getInstance().getTemperature();
                 if(temperature == null){
