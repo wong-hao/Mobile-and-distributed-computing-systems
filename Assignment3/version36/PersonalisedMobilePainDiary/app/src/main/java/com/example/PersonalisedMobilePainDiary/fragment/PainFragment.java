@@ -113,10 +113,6 @@ public class PainFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(),"The location of pain that you choose is ："+array2[position],Toast.LENGTH_SHORT).show();
                 location = array2[position];
-                if(location.isEmpty()){
-                    Toast.makeText(getActivity(),"Location is empty",Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 //System.out.println(location);
 
             }
@@ -140,10 +136,6 @@ public class PainFragment extends Fragment {
                 Toast.makeText(getActivity(),"The mood level of you is "+
                         map.get("namepic").toString(),Toast.LENGTH_SHORT).show();
                 mood = map.get("namepic").toString();
-                if(mood.isEmpty()){
-                    Toast.makeText(getActivity(),"Mood is empty",Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 //System.out.println(mood);
 
             }
@@ -157,7 +149,14 @@ public class PainFragment extends Fragment {
         binding.Button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(location==null){
+                    Toast.makeText(getActivity(),"Location is empty",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mood==null){
+                    Toast.makeText(getActivity(),"Mood is empty",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(binding.editText5.getText().toString().isEmpty()){
                     Toast.makeText(getActivity(),"Goal is empty, take the defalut value " + goal,Toast.LENGTH_SHORT).show();
                 }else{
