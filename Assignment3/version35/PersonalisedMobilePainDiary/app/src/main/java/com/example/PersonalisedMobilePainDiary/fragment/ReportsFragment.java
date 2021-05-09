@@ -2,6 +2,7 @@ package com.example.PersonalisedMobilePainDiary.fragment;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
@@ -40,6 +41,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ReportsFragment extends Fragment {
@@ -78,6 +80,8 @@ public class ReportsFragment extends Fragment {
 
     private String[] array1 = {"temperature","humidity","pressure"};
     String weathervarible;
+    String[] dateRange = new String[14400];
+    int m=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -211,8 +215,41 @@ public class ReportsFragment extends Fragment {
                         showStepsChart();
                     }
                 case R.id.radioButton3:
-                    if(binding.radioButton2.isChecked()){
-                        System.out.println("check 3");
+                    if(binding.radioButton3.isChecked()){
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String dateFirst=StartDay;
+                        String dateSecond=EndDay;
+
+                        if(StartDay==null){
+                            Toast.makeText(getActivity(),"Starting day is empty",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(EndDay==null){
+                            Toast.makeText(getActivity(),"Ending day is empty",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        try{
+                            Date startDate = dateFormat.parse(dateFirst);
+                            Date endDate = dateFormat.parse(dateSecond);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(startDate);
+                            while(calendar.getTime().before(endDate)){
+                                //System.out.println(dateFormat.format(calendar.getTime()));
+                                dateRange[m++] = dateFormat.format(calendar.getTime());
+                                calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+                            }
+                            //System.out.println(dateFormat.format(endDate));
+                            dateRange[m++] = dateFormat.format(endDate);
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+
+                        for(int i=0;i<m;i++){
+                            System.out.println(dateRange[i]);
+                        }
                     }
             }
         }
