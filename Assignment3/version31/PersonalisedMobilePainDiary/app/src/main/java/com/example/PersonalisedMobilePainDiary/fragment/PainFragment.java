@@ -190,13 +190,9 @@ public class PainFragment extends Fragment {
                     //System.out.println("Date in room: " + date_room[i]);
                 }
 
-                if(flag == false){
-                    Toast.makeText(getActivity(),"One entry allowed per day",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else{
+
                     date = Weather.getInstance().getDate();
-                }
+                    date = "2021-05-08";
 
                 email = User.getInstance().getEmail();
 

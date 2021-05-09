@@ -159,10 +159,10 @@ public class PainFragment extends Fragment {
             public void onClick(View v) {
 
                 if(binding.editText5.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity(),"Goal is empty",Toast.LENGTH_SHORT).show();
-                    return;
+                    Toast.makeText(getActivity(),"Goal is empty, take the defalut value " + goal,Toast.LENGTH_SHORT).show();
+                }else{
+                    goal= Integer.parseInt(binding.editText5.getText().toString());
                 }
-                goal= Integer.parseInt(binding.editText5.getText().toString());
                 //System.out.println("Goal set: "+goal);
                 Steps.getInstance().setGoal(goal);
 
@@ -227,13 +227,19 @@ public class PainFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                /*
+                if(binding.editText9.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity(),"ID is empty",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                id = Integer.parseInt(binding.editText9.getText().toString());
+                */
 
                 if(binding.editText9.getText().toString().isEmpty()){
                     Toast.makeText(getActivity(),"Date is empty",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 date2 = binding.editText9.getText().toString();
-                //System.out.println(id);
 
                 if(binding.editText5.getText().toString().isEmpty()){
                     Toast.makeText(getActivity(),"Goal is empty",Toast.LENGTH_SHORT).show();
@@ -271,7 +277,7 @@ public class PainFragment extends Fragment {
                 //System.out.println("Email: " +email);
 
                 //model.updateByID(id,intensity,location,mood,steps,date,temperature,humidity,pressure,email);
-                model.updateByDate(date2, intensity,location,mood,steps,date,temperature,humidity,pressure,email);
+                model.updateByDate(date2, intensity,location,mood,steps,date2,temperature,humidity,pressure,email);
                 Toast.makeText(getActivity(),"Edit Finish",Toast.LENGTH_SHORT).show();
 
 

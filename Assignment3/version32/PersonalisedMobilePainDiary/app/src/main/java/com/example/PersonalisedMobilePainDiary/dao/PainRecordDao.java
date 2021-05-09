@@ -29,7 +29,7 @@ public interface PainRecordDao {
     void updatePainRecords(PainRecord... painrecord);
     @Query("UPDATE painrecord SET pain_intensity_level=:intensity, location_of_pain=:location, mood_level=:mood, steps_taken=:steps, `current_date`=:date, current_temperature=:temperature, current_humidity=:humidity, current_pressure=:pressure, user_email=:email WHERE uid = :id")
     void updateByID(int id, int intensity, String location, String mood, int steps, String date, String temperature, String humidity, String pressure, String email);
-    @Query("UPDATE painrecord SET pain_intensity_level=:intensity, location_of_pain=:location, mood_level=:mood, steps_taken=:steps, `current_date`=:date, current_temperature=:temperature, current_humidity=:humidity, current_pressure=:pressure, user_email=:email WHERE current_date = :date2")
+    @Query("UPDATE painrecord SET pain_intensity_level=:intensity, location_of_pain=:location, mood_level=:mood, steps_taken=:steps, `current_date`=:date, current_temperature=:temperature, current_humidity=:humidity, current_pressure=:pressure, user_email=:email WHERE `current_date` = :date2")
     void updateByDate(String date2, int intensity, String location, String mood, int steps, String date, String temperature, String humidity, String pressure, String email);
     @Query("DELETE FROM painrecord")
     void deleteAll();
