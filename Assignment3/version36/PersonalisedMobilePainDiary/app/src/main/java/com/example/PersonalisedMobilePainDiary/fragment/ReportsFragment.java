@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.PersonalisedMobilePainDiary.R;
 import com.example.PersonalisedMobilePainDiary.Steps;
 import com.example.PersonalisedMobilePainDiary.Weather;
+import com.example.PersonalisedMobilePainDiary.bean.XAxisValueFormatter;
 import com.example.PersonalisedMobilePainDiary.databinding.FragmentDailyBinding;
 import com.example.PersonalisedMobilePainDiary.databinding.FragmentReportsBinding;
 import com.example.PersonalisedMobilePainDiary.entity.PainRecord;
@@ -138,6 +139,9 @@ public class ReportsFragment extends Fragment {
                     }
 
                 });
+
+    binding.pcCharts.setNoDataTextColor(Color.WHITE);
+    binding.lineCharts.setNoDataTextColor(Color.WHITE);
 
     binding.Button8.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -265,7 +269,6 @@ public class ReportsFragment extends Fragment {
                         for(int i=0;i<m;i++){
                             System.out.println(dateRange[i]);
                         }
-
                         showLineChart();
                     }
             }
@@ -384,6 +387,7 @@ public class ReportsFragment extends Fragment {
 
         binding.pcCharts.highlightValues(null);//设置高亮显示
         binding.pcCharts.setDrawEntryLabels(true);// 设置pieChart是否只显示饼图上百分比不显示文字
+        binding.pcCharts.notifyDataSetChanged();
         binding.pcCharts.invalidate();//将图表重绘以显示设置的属性和数据
 
         binding.pcCharts.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {//点击事件
@@ -499,6 +503,7 @@ public class ReportsFragment extends Fragment {
         //为图表设置新的数据对象
         binding.pcCharts.setData(data);
         //刷新
+        binding.pcCharts.notifyDataSetChanged();
         binding.pcCharts.invalidate();
         //动画图上指定的动画时间轴的绘制
         //binding.pcCharts.animateY(1400, Easing.EasingOption.EaseInOutQuad);
@@ -513,6 +518,7 @@ public class ReportsFragment extends Fragment {
         //创建Entry保存你的数据
         List<Entry> entry1 = new ArrayList<Entry>() ; //折线一的数据源
         List<Entry> entry2 = new ArrayList<Entry>() ; //折线二的数据源
+        String[] str = {"2021-05-08","2021-05-09","2021-05-10","2021-05-11"};
         //向折线一添加数据
         Entry x1 = new Entry(0f , 10000f) ;
         entry1.add(x1) ;
@@ -550,7 +556,11 @@ public class ReportsFragment extends Fragment {
         //设置图表
         binding.lineCharts.setData(data);
         //刷新
+        binding.lineCharts.notifyDataSetChanged();
         binding.lineCharts.invalidate();
+        XAxis xAxis = binding.lineCharts.getXAxis();
+        XAxisValueFormatter labelFormatter = new XAxisValueFormatter(str);
+        xAxis.setValueFormatter(labelFormatter);
 
     }
 

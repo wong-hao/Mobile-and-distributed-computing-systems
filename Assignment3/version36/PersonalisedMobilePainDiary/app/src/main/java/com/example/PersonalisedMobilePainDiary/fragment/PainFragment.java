@@ -150,7 +150,7 @@ public class PainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(location==null){
-                    Toast.makeText(getActivity(),"Location is empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Pain Location is empty",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(mood==null){
