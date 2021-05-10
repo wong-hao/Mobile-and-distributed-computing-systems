@@ -93,6 +93,7 @@ public class ReportsFragment extends Fragment {
     private String[] array1 = {"temperature","humidity","pressure"};
     String weathervarible;
     String[] dateRange = new String[14400];
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     int m=0;
 
     @Override
@@ -231,10 +232,6 @@ public class ReportsFragment extends Fragment {
                     }
                 case R.id.radioButton3:
                     if(binding.radioButton3.isChecked()){
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String dateFirst=StartDay;
-                        String dateSecond=EndDay;
-
                         if(StartDay==null){
                             Toast.makeText(getActivity(),"Starting day is empty",Toast.LENGTH_SHORT).show();
                             return;
@@ -249,8 +246,8 @@ public class ReportsFragment extends Fragment {
                         }
 
                         try{
-                            Date startDate = dateFormat.parse(dateFirst);
-                            Date endDate = dateFormat.parse(dateSecond);
+                            Date startDate = dateFormat.parse(StartDay);
+                            Date endDate = dateFormat.parse(EndDay);
                             Calendar calendar = Calendar.getInstance();
                             calendar.setTime(startDate);
                             while(calendar.getTime().before(endDate)){
@@ -266,9 +263,9 @@ public class ReportsFragment extends Fragment {
                             e.printStackTrace();
                         }
 
-                        for(int i=0;i<m;i++){
-                            System.out.println(dateRange[i]);
-                        }
+                        //for(int i=0;i<m;i++){
+                            //System.out.println(dateRange[i]);
+                        //}
                         showLineChart();
                     }
             }
@@ -513,37 +510,94 @@ public class ReportsFragment extends Fragment {
 
     public void showLineChart(){
 
-
+        Description description = new Description();
+        description.setText("");
+        binding.lineCharts.setDescription(description);
+        binding.lineCharts.setExtraLeftOffset(20);
+        binding.lineCharts.setExtraRightOffset(20);
         //找到控件
         //创建Entry保存你的数据
         List<Entry> entry1 = new ArrayList<Entry>() ; //折线一的数据源
         List<Entry> entry2 = new ArrayList<Entry>() ; //折线二的数据源
-        String[] str = {"2021-05-08","2021-05-09","2021-05-10","2021-05-11"};
         //向折线一添加数据
-        Entry x1 = new Entry(0f , 10000f) ;
-        entry1.add(x1) ;
-        Entry x2 = new Entry(1f , 14000f) ;
-        entry1.add(x2) ;
-        Entry x3 = new Entry(2f , 5000f) ;
-        entry1.add(x3) ;
-        Entry x4 = new Entry(3f , 12000f) ;
-        entry1.add(x4) ;
-        //向折线二添加数据
-        Entry y1 = new Entry(0f , 13000f) ;
-        entry2.add(y1) ;
-        Entry y2 = new Entry(1f , 15500f) ;
-        entry2.add(y2) ;
-        Entry y3 = new Entry(3f , 5500f) ;
-        entry2.add(y3) ;
-        Entry y4 = new Entry(4f , 10000f) ;
-        entry2.add(y4) ;
+
+
+        String[] y1Data = new String[m];
+
+        for (int i = 0; i < m; i ++) {
+            int j = i;
+            model.getAllPainRecords().observe(getViewLifecycleOwner(), new
+                    Observer<List<PainRecord>>() {
+                        @Override
+                        public void onChanged(List<PainRecord> painRecords) {
+
+                            for (PainRecord temp : painRecords) {
+
+                                //System.out.println(temp.getIntensity());
+                                //System.out.println(temp.getDate());
+
+                                try {
+                                    Date startDate = dateFormat.parse(StartDay);
+                                    Date endDate = dateFormat.parse(EndDay);
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTime(startDate);
+                                    while (calendar.getTime().before(endDate)) {
+                                        //System.out.println(dateFormat.format(calendar.getTime()));
+                                        if (temp.getDate().equals(dateFormat.format(calendar.getTime()))) {
+                                            //System.out.println("YES");
+                                            //System.out.println(temp.getIntensity());
+                                            y1Data[j] = Integer.toString(temp.getIntensity());
+                                            //System.out.println(y1Data[j]);
+                                        }else{
+                                            //System.out.println("No");
+                                        }
+                                        calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+                                    }
+                                    //System.out.println(dateFormat.format(endDate));
+                                    if (temp.getDate().equals(dateFormat.format(calendar.getTime()))) {
+                                        //System.out.println("YES");
+                                        //System.out.println(temp.getIntensity());
+                                        y1Data[j] = Integer.toString(temp.getIntensity());
+                                    }else{
+                                        //System.out.println("No");
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+
+                    });
+
+            //System.out.println(y1Data[j]);
+        }
+
+        for (int i = 0; i < m; i ++){
+            //System.out.println(y1Data[i]);
+        }
+
+        for (int i = 0; i < m; i ++){
+            float f = i;
+            y1Data[i] = "50";
+            entry1.add(new Entry(f, Float.parseFloat(y1Data[i])));
+        }
+
+        String[] y2Data = new String[m];
+        for (int i = 0; i < m; i ++){
+            y2Data[i] = "70";
+            float f = i;
+            entry2.add(new Entry(f, Float.parseFloat(y2Data[i])));
+        }
+
         //将数据传递给LineDataSet对象
-        LineDataSet set1 = new LineDataSet(entry1 , "折线一") ;
+        LineDataSet set1 = new LineDataSet(entry1 , "Pain Level") ;
         //调用setAxisDependency（）指定DataSets绘制相应的折线
         set1.setAxisDependency(YAxis.AxisDependency.LEFT);
         //折线一 折线的颜色
         set1.setColor(getResources().getColor(R.color.colorAccent));
-        LineDataSet set2 = new LineDataSet(entry2 , "折线二") ;
+        LineDataSet set2 = new LineDataSet(entry2 , "Weather Value") ;
         set2.setAxisDependency(YAxis.AxisDependency.LEFT);
         //折线二 折线的颜色
         set2.setColor(getResources().getColor(R.color.colorPrimary));
@@ -559,7 +613,8 @@ public class ReportsFragment extends Fragment {
         binding.lineCharts.notifyDataSetChanged();
         binding.lineCharts.invalidate();
         XAxis xAxis = binding.lineCharts.getXAxis();
-        XAxisValueFormatter labelFormatter = new XAxisValueFormatter(str);
+        xAxis.setGranularity(1f);
+        XAxisValueFormatter labelFormatter = new XAxisValueFormatter(dateRange);
         xAxis.setValueFormatter(labelFormatter);
 
     }
