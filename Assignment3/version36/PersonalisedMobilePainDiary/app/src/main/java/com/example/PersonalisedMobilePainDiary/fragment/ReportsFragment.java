@@ -215,11 +215,17 @@ public class ReportsFragment extends Fragment {
             switch (checkedId){
                 case R.id.radioButton1:
                     if(binding.radioButton1.isChecked()){
+                        binding.pcCharts.setVisibility(View.VISIBLE);
+                        binding.lineCharts.setVisibility(View.INVISIBLE);
+
                         Toast.makeText(getActivity(),"Show Pain location pie chart",Toast.LENGTH_SHORT).show();
                         showPainChart();
                     }
                 case R.id.radioButton2:
                     if(binding.radioButton2.isChecked()){
+                        binding.pcCharts.setVisibility(View.VISIBLE);
+                        binding.lineCharts.setVisibility(View.INVISIBLE);
+
                         Toast.makeText(getActivity(),"Show Steps taken pie chart",Toast.LENGTH_SHORT).show();
 
                         steps_taken = Steps.getInstance().getSteps_taken();
@@ -232,6 +238,10 @@ public class ReportsFragment extends Fragment {
                     }
                 case R.id.radioButton3:
                     if(binding.radioButton3.isChecked()){
+                        binding.lineCharts.setVisibility(View.VISIBLE);
+                        binding.pcCharts.setVisibility(View.INVISIBLE);
+
+
                         if(StartDay==null){
                             Toast.makeText(getActivity(),"Starting day is empty",Toast.LENGTH_SHORT).show();
                             return;
@@ -266,6 +276,8 @@ public class ReportsFragment extends Fragment {
                         //for(int i=0;i<m;i++){
                             //System.out.println(dateRange[i]);
                         //}
+                        Toast.makeText(getActivity(),"Show Line chart",Toast.LENGTH_SHORT).show();
+
                         showLineChart();
                     }
             }
@@ -559,6 +571,7 @@ public class ReportsFragment extends Fragment {
                                         //System.out.println("YES");
                                         //System.out.println(temp.getIntensity());
                                         y1Data[j] = Integer.toString(temp.getIntensity());
+                                        //System.out.println(y1Data[j]);
                                     }else{
                                         //System.out.println("No");
                                     }
@@ -573,6 +586,8 @@ public class ReportsFragment extends Fragment {
 
             //System.out.println(y1Data[j]);
         }
+
+        //System.out.println("m: "+m);
 
         for (int i = 0; i < m; i ++){
             //System.out.println(y1Data[i]);
@@ -590,6 +605,8 @@ public class ReportsFragment extends Fragment {
             float f = i;
             entry2.add(new Entry(f, Float.parseFloat(y2Data[i])));
         }
+
+        m = 0;
 
         //将数据传递给LineDataSet对象
         LineDataSet set1 = new LineDataSet(entry1 , "Pain Level") ;
