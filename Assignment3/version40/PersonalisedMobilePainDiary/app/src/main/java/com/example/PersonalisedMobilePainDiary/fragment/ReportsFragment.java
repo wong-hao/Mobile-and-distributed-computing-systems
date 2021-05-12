@@ -702,7 +702,7 @@ public class ReportsFragment extends Fragment {
         //折线一 折线的颜色
         set1.setColor(getResources().getColor(R.color.colorAccent));
         LineDataSet set2 = new LineDataSet(entry2 , "Weather Value") ;
-        set2.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
         //折线二 折线的颜色
         set2.setColor(getResources().getColor(R.color.colorPrimary));
         //使用接口ILineDataSet
