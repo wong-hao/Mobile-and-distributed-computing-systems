@@ -295,7 +295,7 @@ public class ReportsFragment extends Fragment {
 
                         showLineChart();
 
-                        binding.textView20.setText("Correlation R value: " + testCorrelation());
+                        binding.textView20.setText(testCorrelation());
 
                     }
             }
@@ -750,8 +750,7 @@ public class ReportsFragment extends Fragment {
         // significant test of the correlation coefficient (p-value)
         pM = pc.getCorrelationPValues();
 
-        return("p value:" + pM.getEntry(0, 1)+ "\n" + " correlation: " +
-                corM.getEntry(0, 1));
+        return("\n" + "r value: " + corM.getEntry(0, 1) + "\n" + "p value:" + pM.getEntry(0, 1));
 
 
 
