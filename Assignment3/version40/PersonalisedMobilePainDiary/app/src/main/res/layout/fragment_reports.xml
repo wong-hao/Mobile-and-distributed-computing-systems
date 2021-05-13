@@ -52,7 +52,7 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="405dp">
+        android:layout_height="379dp">
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pcCharts"
@@ -65,6 +65,12 @@
             android:layout_height="match_parent" />
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/Button10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="perform the correlation test" />
 
     <TextView
         android:id="@+id/textView20"

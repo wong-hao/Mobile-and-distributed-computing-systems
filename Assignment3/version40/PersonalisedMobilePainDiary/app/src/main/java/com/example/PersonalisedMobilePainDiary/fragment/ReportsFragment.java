@@ -294,14 +294,17 @@ public class ReportsFragment extends Fragment {
                         Toast.makeText(getActivity(),"Show Line chart",Toast.LENGTH_SHORT).show();
 
                         showLineChart();
-
-                        binding.textView20.setText(testCorrelation());
-
                     }
             }
         }
     });
 
+    binding.Button10.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            binding.textView20.setText(testCorrelation());
+        }
+    });
 
     return view;
 
@@ -750,7 +753,7 @@ public class ReportsFragment extends Fragment {
         // significant test of the correlation coefficient (p-value)
         pM = pc.getCorrelationPValues();
 
-        return("\n" + "r value: " + corM.getEntry(0, 1) + "\n" + "p value:" + pM.getEntry(0, 1));
+        return("     r value: " + corM.getEntry(0, 1) + "\n" + "     p value:" + pM.getEntry(0, 1));
 
 
 
