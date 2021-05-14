@@ -68,7 +68,15 @@ public class PainFragment extends Fragment {
     int n = 0;
     boolean flag = true;
 
-    Data data = null;
+    Data data1 = null;
+    Data data2 = null;
+    Data data3 = null;
+    Data data4 = null;
+    Data data5 = null;
+    Data data6 = null;
+    Data data7 = null;
+    Data data8 = null;
+    Data data9 = null;
 
 
     @Override
@@ -229,9 +237,25 @@ public class PainFragment extends Fragment {
 
                 model.insert(painRecord);
 
-                data = new Data.Builder().putString("h",temperature).build();
+                data1 = new Data.Builder().putInt("intensity",intensity).build();
+                data2 = new Data.Builder().putString("location",location).build();
+                data3 = new Data.Builder().putString("mood",mood).build();
+                data4 = new Data.Builder().putInt("steps",steps).build();
+                data5 = new Data.Builder().putString("date",date).build();
+                data6 = new Data.Builder().putString("temperature",temperature).build();
+                data7 = new Data.Builder().putString("humidity",humidity).build();
+                data8 = new Data.Builder().putString("pressure",pressure).build();
+                data9 = new Data.Builder().putString("email",email).build();
                 PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(FirebaseWorker.class,15, TimeUnit.MINUTES)
-                        .setInputData(data)
+                        .setInputData(data1)
+                        .setInputData(data2)
+                        .setInputData(data3)
+                        .setInputData(data4)
+                        .setInputData(data5)
+                        .setInputData(data6)
+                        .setInputData(data7)
+                        .setInputData(data8)
+                        .setInputData(data9)
                         .build();
                 WorkManager.getInstance(getActivity()).enqueue(periodicWorkRequest);
 

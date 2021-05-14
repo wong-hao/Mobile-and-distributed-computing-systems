@@ -27,8 +27,10 @@ public class FirebaseWorker extends Worker {
     @NotNull
     @Override
     public Result doWork() {
+
+        int intensity = this.getInputData().getInt("intensity",0);
         //mDatabase = FirebaseDatabase.getInstance().getReference();
-        //mDatabase.child("painRecord").child(String.valueOf(painRecordID++)).setValue(this.getInputData());
+        //mDatabase.child("painRecord").child(String.valueOf(painRecordID++)).setValue(painRecord);
 
 
         Log.d(TAG, "this_doWork"+this.getInputData().getString("h"));
