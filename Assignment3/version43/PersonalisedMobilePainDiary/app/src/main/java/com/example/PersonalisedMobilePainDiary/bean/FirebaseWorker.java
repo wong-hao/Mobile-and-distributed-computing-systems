@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class FirebaseWorker extends Worker {
 
     private DatabaseReference mDatabase;
-    int painRecordID = 1;
+    int painRecordID = 2;
 
     private static final String TAG = "worktag";
 
@@ -40,14 +40,14 @@ public class FirebaseWorker extends Worker {
         String date = getInputData().getString("date");
         String email = getInputData().getString("email");
 
-        //System.out.println("Intensity: " + intensity);
+        System.out.println("Intensity: " + intensity);
         //System.out.println("Location: " + location);
         //System.out.println("Mood: " + mood);
         //System.out.println("Steps: " + steps);
         //System.out.println("Temperature: " + temperature);
         //System.out.println("Humidity: " +humidity);
         //System.out.println("Pressure: " +pressure);
-        //System.out.println("Date: " +date);
+        System.out.println("Date: " +date);
         //System.out.println("Email: " +email);
 
         PainRecord painRecord = new PainRecord(intensity,location,mood,steps,date,temperature,humidity,pressure,email);
@@ -55,7 +55,7 @@ public class FirebaseWorker extends Worker {
         mDatabase.child("painRecord").child(String.valueOf(painRecordID++)).setValue(painRecord);
 
 
-        Log.d(TAG, "this_doWork");
+        Log.d(TAG, "Object" + painRecordID++ + " is uploaded to firebase\n" + "The daily record details->" + " intensity: " + intensity + ", location: " + location + ",  mood: " + mood + ", steps: " + steps + ", temperature" + temperature + ", humidity: " + humidity + ", pressure: " + pressure + ", date: " + date + ", email: " + email);
         return Result.success();//结果返回为成功
     }
 }
